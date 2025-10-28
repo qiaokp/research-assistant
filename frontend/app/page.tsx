@@ -95,7 +95,7 @@ export default function Home() {
       <header className="border-b border-claude-border bg-claude-surface">
         <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <h1 className="text-xl font-semibold">Research Assistant</h1>
+            <h1 className="text-xl font-semibold">🔬 Deep Research Assistant ✅</h1>
             {messages.length > 0 && (
               <button
                 onClick={handleNewChat}
