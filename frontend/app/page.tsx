@@ -119,13 +119,13 @@ export default function Home() {
       {/* Controls */}
       <div className="border-b border-claude-border bg-claude-surface">
         <div className="max-w-5xl mx-auto px-6 py-3 flex items-center gap-4">
-          {styles.length > 0 && (
-            <StyleSelector
-              styles={styles}
-              selectedStyle={selectedStyle}
-              onStyleChange={setSelectedStyle}
-            />
-          )}
+          <StyleSelector
+            styles={styles.length > 0 ? styles : [
+              { name: 'default', display_name: 'Balanced', description: 'Loading styles...' }
+            ]}
+            selectedStyle={selectedStyle}
+            onStyleChange={setSelectedStyle}
+          />
           <DeepResearchToggle
             enabled={deepResearch}
             onChange={setDeepResearch}
