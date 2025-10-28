@@ -1,9 +1,15 @@
 #!/bin/bash
 
 # Research Assistant Startup Script
+# This will start both backend and frontend servers
 
 echo "🚀 Starting Research Assistant..."
 echo ""
+
+# Kill any existing servers
+pkill -f "python main.py"
+pkill -f "next dev"
+sleep 2
 
 # Check if .env exists in backend
 if [ ! -f "backend/.env" ]; then
@@ -33,14 +39,14 @@ echo "🔧 Starting backend server..."
 cd backend
 source venv/bin/activate
 pip install -q -r requirements.txt
-python main.py &
+python main.py > /tmp/backend.log 2>&1 &
 BACKEND_PID=$!
 cd ..
 
-echo "✅ Backend started (PID: $BACKEND_PID)"
+echo "✅ Backend started (PID: $BACKEND_PID) on http://localhost:8000"
 sleep 3
 
-# Start frontend
+# Start frontend on port 4000
 echo "🎨 Starting frontend..."
 cd frontend
 
@@ -50,15 +56,15 @@ if [ ! -d "node_modules" ]; then
     npm install
 fi
 
-npm run dev &
+PORT=4000 npm run dev > /tmp/frontend.log 2>&1 &
 FRONTEND_PID=$!
 cd ..
 
-echo "✅ Frontend started (PID: $FRONTEND_PID)"
+echo "✅ Frontend started (PID: $FRONTEND_PID) on http://localhost:4000"
 echo ""
 echo "🎉 Research Assistant is running!"
 echo ""
-echo "   Frontend: http://localhost:3000"
+echo "   Frontend: http://localhost:4000  ← Open this!"
 echo "   Backend:  http://localhost:8000"
 echo "   API Docs: http://localhost:8000/docs"
 echo ""
